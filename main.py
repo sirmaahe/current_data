@@ -1,6 +1,8 @@
 import wave
 import datetime
 
+from pydub import AudioSegment
+
 from api import get_speech_file_from_text
 
 mouth_list = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября',
@@ -23,20 +25,19 @@ def make_file():
 
     get_speech_file_from_text(current_date)
 
-    date = 'date.wav'
-    infiles = ['samples/{}.wav'.format(name) for name in range(1, 10)]
-    outfile_wav = "<{}>.wav".format(current_date)
+    date = 'date.mp3'
+    infiles = ['samples/{}.mp3'.format(name) for name in range(1, 10)]
+    outfile = "<{}>.mp3".format(current_date)
 
-    output = wave.open(outfile_wav, 'wb')
+    date = AudioSegment.from_mp3(date)
 
-    with wave.open(date, 'rb') as w:
-        output.setparams(w.getparams())
-
+    output = AudioSegment.silent(duration=100)
     for infile in infiles:
-        add_to_output(infile, output)
-        add_to_output(date, output)
+        segment = AudioSegment.from_mp3(infile)
+        output += segment
+        output += date
 
-    output.close()
-    return outfile_wav
+    output.export(outfile)
+    return outfile
 
 make_file()

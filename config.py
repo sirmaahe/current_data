@@ -1,0 +1,1 @@
+YANDEX_CLOUD_API_KEY = 'db55d358-cbcf-4b12-a340-dcdb8cece806'
