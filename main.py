@@ -1,6 +1,6 @@
-import wave
 import datetime
 
+import vk
 from pydub import AudioSegment
 
 from api import get_speech_file_from_text
@@ -9,12 +9,6 @@ mouth_list = ['января', 'февраля', 'марта', 'апреля', '�
               'ноября', 'декабря']
 
 month_map = dict(zip(range(1, 13), mouth_list))
-
-
-def add_to_output(filename, output):
-    w = wave.open(filename, 'rb')
-    output.writeframes(w.readframes(w.getnframes()))
-    w.close()
 
 
 def make_file():
@@ -40,4 +34,6 @@ def make_file():
     output.export(outfile)
     return outfile
 
-make_file()
+
+if __name__ == '__main__':
+    pass
